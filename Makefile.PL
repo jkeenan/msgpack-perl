@@ -7,7 +7,7 @@ use Module::Install::AuthorTests;
 name 'Data-MessagePack';
 all_from 'lib/Data/MessagePack.pm';
 
-configure_requires('File::Copy::Recursive');
+configure_requires('File::Copy::Recursive::Reduced' => 0.005);
 
 test_requires('Test::More' => 0.94); # done_testing
 test_requires('Test::Requires');
@@ -120,7 +120,7 @@ sub init_msgpack {
 
     require File::Path;
     require File::Copy;
-    require File::Copy::Recursive;
+    require File::Copy::Recursive::Reduced;
 
     File::Path::rmtree([qw(include t/std)]);
 
@@ -141,7 +141,7 @@ sub init_msgpack {
             print "AuthorMode: copy $src to $dest\n";
 
             if (-d $src) {
-                File::Copy::Recursive::dircopy($src, "$dest/") or die "copy failed: $!";
+                File::Copy::Recursive::Reduced::dircopy($src, "$dest/") or die "copy failed: $!";
             } else {
                 File::Copy::copy($src, $dest) or die "copy failed: $!";
             }
